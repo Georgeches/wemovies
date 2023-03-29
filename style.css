@@ -1,0 +1,170 @@
+ /*#84cba6
+#042541
+#11b4e0*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.intro h1{
+    color: white;
+    font-size: 50px;
+}
+
+.navbar-brand{
+    font-size: 28px;
+}
+
+.jumbotron {
+    color: white;
+    background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701168454.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 60vh;
+    filter: brightness(30%);
+  }
+
+.nav, .drop{
+    position: absolute;
+    z-index: 2;
+    background-color: rgb(48, 114, 150);
+    width: 100%;
+    
+}
+
+.dropdown-item{
+    color: white;
+}
+
+.nav-link{
+    color: white;
+    margin-left: 40px;
+}
+
+.nav-link:hover{
+    color: grey;
+}
+
+#search{
+    height: 50px;
+    width: 600px;
+    border: 1px solid rgba(128, 128, 128, 0.259);
+    border-radius: 10px;
+    font-size: 16px;
+    color: rgb(60, 60, 60);
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.search{
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: rgb(1, 109, 168);
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+}
+
+.search:hover{
+    color: black;
+}
+
+.categories{
+    margin-top: -14vh;
+    position: relative;
+    bottom: 100px; 
+}
+
+@media only screen and (min-width:1200px){
+    .categories{
+        margin-top: 3vh;
+        position: relative;
+        bottom: 60vh; 
+    }
+
+    .texts{
+        position: relative;
+        bottom: 77vh;
+        left: 50px; 
+        color: white;
+    }
+
+    .first {
+        color: white;
+    }
+
+    .jumbotron{
+        height: 110vh;
+    }
+}
+
+.category{
+    height:65vh;
+}
+
+.category-body{
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 55vh;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+.title{
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.movie-card{
+    height: 30vh;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.movie-card img{
+    height: 40vh;
+    border-radius: 13px;
+    transition: all 0.5s;
+    filter: brightness(80%);
+}
+
+img:hover{
+    filter: brightness(120%);
+}
+@media only screen and (max-width:600px){
+    .intro-header{
+        font-size: 25px;
+    }
+
+    .intro h1{
+        font-size: 35px;
+    }
+
+    #search{
+        width: 330px;
+        margin-bottom: 10px;
+    }
+    .texts{
+        position: relative;
+        bottom: 320px;
+        left: 10px; 
+    }    
+    .space{
+        width: 40vh;
+        display: flex;
+        justify-content: space-between;
+    }
+    .space a{
+        font-size: 25px;
+    }
+
+    i{
+        font-size: 30px;
+        color: white;
+    }
+}
