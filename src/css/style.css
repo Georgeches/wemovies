@@ -1,10 +1,14 @@
- /*#84cba6
-#042541
-#11b4e0*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 body{
     font-family: 'Poppins', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+::-webkit-scrollbar{
+    height: 0px;
 }
 
 .intro h1{
@@ -13,7 +17,9 @@ body{
 }
 
 .navbar-brand{
-    font-size: 28px;
+    font-size: 35px;
+    font-weight: 800;
+    color: rgb(159, 0, 8);
 }
 
 .jumbotron {
@@ -26,12 +32,17 @@ body{
     filter: brightness(30%);
   }
 
+.nav{
+    position: fixed;
+}
+
 .nav, .drop{
-    position: absolute;
     z-index: 2;
-    background-color: rgb(48, 114, 150);
+    background-color: rgba(71, 71, 71, 0.269);
     width: 100%;
-    
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding-left: 40px;
 }
 
 .dropdown-item{
@@ -62,7 +73,7 @@ body{
     height: 50px;
     width: 150px;
     border-radius: 10px;
-    background-color: rgb(1, 109, 168);
+    background-color: rgb(159, 0, 8);
     border: none;
     outline: none;
     color: white;
@@ -76,7 +87,8 @@ body{
 .categories{
     margin-top: -14vh;
     position: relative;
-    bottom: 100px; 
+    bottom: 100px;
+    font-family: 'Roboto', sans-serif;
 }
 
 @media only screen and (min-width:1200px){
@@ -121,9 +133,12 @@ body{
 }
 
 .movie-card{
-    height: 30vh;
+    height: 50vh;
     margin-top: 10px;
     margin-right: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
 }
 
 .movie-card img{
