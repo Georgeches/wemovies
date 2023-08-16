@@ -1,4 +1,4 @@
-.movie-details-page{
+.movie-details-page, .search-page{
     position: relative;
     width: 100%;
     top: 90px;
@@ -127,14 +127,14 @@ h5{
     flex-wrap: wrap;
 }
 
-.thumbnail{
+.thumbnail, .video-container{
     height: 300px;
     width: 400px;
     overflow: hidden;
     margin: 7px;
 }
 
-.thumbnail img{
+.thumbnail img, .video{
     width: 100%;
     height: auto;
     cursor: pointer;
@@ -149,11 +149,12 @@ h5{
     position: relative;
     bottom: 50%;
     left: 40%;
+    z-index: 1000;
 }
 
 .thumbnail .play i{
     font-size: 45px;
-    color: rgb(159, 0, 8);
+    color: rgba(255, 255, 255, 0.823);
 }
 
 .trailer{
@@ -164,8 +165,12 @@ h5{
     filter: brightness(100%);
 }
 
+.related-movies{
+    height: 50vh;
+}
+
 @media only screen and (min-width: 1000px){
-    .videos{
+    .videos-section{
         padding-left: 50px;
     }
     .trailer{
@@ -189,13 +194,27 @@ h5{
     }
 }
 
+@media only screen and (max-width: 850px) and (min-width: 600px){
+    .thumbnail, .video-container{
+        width: 100%;
+        height: 500px;
+    }
+}
+
 @media only screen and (max-width: 600px){
     .trailer{
         height: 500px;
-        width: 420px;
+        width: 100%;
         overflow: hidden;
     }
     i.bi{
         font-size: 15px;
+    }
+    .related-movies{
+        width: 100%;
+    }
+    .thumbnail, .video-container{
+        width: 100%;
+        height: 220px;
     }
 }

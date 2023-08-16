@@ -55,20 +55,19 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
     for(let i=0; i<=starsCount; i++){
         starsList.unshift("star")
     }
-
-    console.log(videos)
     
     return(
         <div className="movie-details-page container-fluid p-lg-5">
-            <div className="trailer d-flex justify-content-center">
-                <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${trailer?.key}`}
-                    height="100%"
-                    width="90%"
-                    style={{marginRight:"10px"}}
-                    controls={true}
-                />
-            </div>
+            {trailer &&(
+                <div className="trailer d-flex justify-content-center">
+                    <ReactPlayer
+                        url={`https://www.youtube.com/watch?v=${trailer?.key}`}
+                        height="100%"
+                        width="100%"
+                        controls={true}
+                    />
+                </div>
+            )}
             <div className="row mt-5 p-lg-5">
                 <div className="col-12 col-lg-3 img-section">
                     <img className="" src={imageSource+movie?.poster_path} alt="movie-poster" />
@@ -122,46 +121,49 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                 </div>
             </div>
 
-            <div className="videos-list mt-5">
-                <h4>Videos</h4>
-                <div className="videos">
-                {videos.filter(video=>video?.type==="Clip").map((video, index)=>
-                    <div key={video.key} className="video-container">
-                        {loadedVideoIndices.includes(index) ? (
-                        <ReactPlayer
-                            url={`https://www.youtube.com/watch?v=${video.key}`}
-                            height="300px"
-                            width="400px"
-                            style={{ marginRight: "10px" }}
-                            controls={true}
-                        />
-                        ) : (
-                            <div className="thumbnail"
-                            onMouseEnter={e=>{
-                                e.preventDefault()
-                                let button = e.target.parentNode.querySelector(".play")
-                                button.classList.remove("d-none")
-                            }}
-                            onMouseLeave={e=>{
-                                e.preventDefault()
-                                let button = e.target.parentNode.querySelector(".play")
-                                button.classList.add("d-none")
-                            }}
-                            >
-                                <img
-                                    src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
-                                    alt="video-preview"
-                                    onClick={() => handleVideoLoad(index)}
-                                />
-                                <button className="play d-none" onClick={() => handleVideoLoad(index)}><i class="bi bi-play-circle-fill"></i></button>
-                            </div>
-                        )}
+            {videos?.filter(video=>video?.type!=="Behind the Scenes").length>0&&
+                <div className="videos-section mt-5">
+                    <h4>Videos</h4>
+                    <div className="videos">
+                    {videos.filter(video=>video?.type!=="Behind the Scenes").map((video, index)=>
+                        <div key={video.key} className="video-container">
+                            {loadedVideoIndices.includes(index) ? (
+                                <div className="video-container">
+                                    <ReactPlayer
+                                        url={`https://www.youtube.com/watch?v=${video.key}`}
+                                        className="video"
+                                        style={{ marginRight: "10px" }}
+                                        controls={true}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="thumbnail"
+                                onMouseEnter={e=>{
+                                    e.preventDefault()
+                                    let button = e.target.parentNode.querySelector(".play")
+                                    button.classList.remove("d-none")
+                                }}
+                                onMouseLeave={e=>{
+                                    e.preventDefault()
+                                    let button = e.target.parentNode.querySelector(".play")
+                                    button.classList.add("d-none")
+                                }}
+                                >
+                                    <img
+                                        src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
+                                        alt="video-preview"
+                                        onClick={() => handleVideoLoad(index)}
+                                    />
+                                    <button className="play d-none" onClick={() => handleVideoLoad(index)}><i class="bi bi-play-circle-fill"></i></button>
+                                </div>
+                            )}
+                        </div>
+                    )}
                     </div>
-                )}
                 </div>
-            </div>
+            }
 
-            <div className="related-movies mt-5">
+            <div className="related-movies mt-5 ps-lg-5">
                 <h4>Recommended Shows</h4>
                 <div className="recommended">
                     {similarMovies?.map(popular_movie=>
@@ -169,7 +171,6 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                             popular_movie?.poster_path!==null&&(
                                 <div className="movie-card">
                                     <a href={'/movie/'+popular_movie.id+'/'+popular_movie?.title}><img src={imageSource+popular_movie?.poster_path} alt="${result?.title}"/></a>
-                                    <p className="title">{popular_movie?.title}</p>
                                 </div>
                             )
                         )

@@ -1,0 +1,31 @@
+.toggle-pages{
+margin-top: 30px;
+}
+.pages{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    overflow-x: scroll;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+.toggle-pages button{
+    height: 100%;
+    min-width: 50px !important;
+    border: 1px solid black;
+    outline: none;
+    background-color: rgb(26, 26, 26);
+    color: rgb(217, 217, 217);
+}
+
+@media only screen and (max-width:600px){
+    .movie-result{
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .movie-result a img{
+        width: 100%;
+        height: auto;
+    }
+}

@@ -48,7 +48,7 @@ function App() {
           <Route path="/search/:search" element={
             <>
             <Navbar/>
-            <Search search={search} popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>
+            <Search imageSource={imageSource} search={search} popularMovies={popularMovies} topRated={topRated} upcoming={upcoming}/>
             </>
           }/>
       </Routes>

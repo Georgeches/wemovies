@@ -57,7 +57,6 @@ export default function Home({popularMovies,topRated,upcoming,imageSource, searc
               </div>
               <div className="container texts">
 
-                <h1 className="intro-header">Welcome to Memovies</h1>
                 <form action={"/search/"+search}>
                   <input type="text" id="search" placeholder="Search for movies here" onChange={e=>{
                     setSearch(e.target.value)
@@ -75,7 +74,6 @@ export default function Home({popularMovies,topRated,upcoming,imageSource, searc
                 {popularMovies.map(movie=>
                     <div className="movie-card" key={movie?.id}>
                         <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
-                        <p className="title">{movie?.title}</p>
                     </div>
                 )}
             </div>
@@ -86,8 +84,7 @@ export default function Home({popularMovies,topRated,upcoming,imageSource, searc
             <div className="category-body top-rated">
                 {topRated.map(movie=>
                     <div className="movie-card" key={movie?.id}>
-                        <img src={imageSource+movie?.poster_path} alt="${result?.title}"/>
-                        <p className="title">{movie?.title}</p>
+                        <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
                     </div>
                 )}
             </div>
@@ -98,8 +95,7 @@ export default function Home({popularMovies,topRated,upcoming,imageSource, searc
           <div className="category-body upcoming">
                 {upcoming.map(movie=>
                     <div className="movie-card" key={movie?.id}>
-                        <img src={imageSource+movie?.poster_path} alt="${result?.title}"/>
-                        <p className="title">{movie?.title}</p>
+                        <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
                     </div>
                 )}
           </div>
