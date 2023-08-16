@@ -3,15 +3,18 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 
+//Components
 import Home from './Components/Home';
 import MovieDetail from './Components/MovieDetail';
 import Navbar from './Components/Navbar';
+import Search from './Components/Search';
 
 function App() {
 
-  const [popularMovies, setPopularMovies] = useState([])
+    const [popularMovies, setPopularMovies] = useState([])
     const [topRated, setTopRated] = useState([])
     const [upcoming, setUpcoming] = useState([])
+    const [search, setSearch] = useState('');
     const imageSource = 'https://image.tmdb.org/t/p/w500'
 
     useEffect(()=>{
@@ -35,11 +38,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Home popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>}/>
+          <Route path="/" element={<Home search={search} setSearch={setSearch} popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>}/>
           <Route path="/movie/:id/:name" element={
             <>
             <Navbar/>
-            <MovieDetail popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>
+            <MovieDetail search={search} setSearch={setSearch} popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>
+            </>
+          }/>
+          <Route path="/search/:search" element={
+            <>
+            <Navbar/>
+            <Search search={search} popularMovies={popularMovies} topRated={topRated} upcoming={upcoming} imageSource={imageSource}/>
             </>
           }/>
       </Routes>

@@ -6,11 +6,10 @@
 }
 
 .img-section{
-    padding-left: 60px;
 }
 
 .img-section img{
-    height: 550px;
+    width: 100%;
     border-radius: 10px;
 }
 
@@ -124,9 +123,37 @@ h5{
 }
 
 .videos{
-    padding-left: 50px;
     display: flex;
     flex-wrap: wrap;
+}
+
+.thumbnail{
+    height: 300px;
+    width: 400px;
+    overflow: hidden;
+    margin: 7px;
+}
+
+.thumbnail img{
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.thumbnail .play{
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+    bottom: 50%;
+    left: 40%;
+}
+
+.thumbnail .play i{
+    font-size: 45px;
+    color: rgb(159, 0, 8);
 }
 
 .trailer{
@@ -135,4 +162,40 @@ h5{
 
 .trailer:hover, .trailer:active{
     filter: brightness(100%);
+}
+
+@media only screen and (min-width: 1000px){
+    .videos{
+        padding-left: 50px;
+    }
+    .trailer{
+        height: 600px;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .videos{
+        margin-bottom: 0px;
+    }
+    .img-section{
+        display: none;
+    }
+    .trailer{
+        height: 500px;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .trailer{
+        height: 500px;
+        width: 420px;
+        overflow: hidden;
+    }
+    i.bi{
+        font-size: 15px;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../css/style.css'
 
-export default function Home({popularMovies,topRated,upcoming,imageSource}){
+export default function Home({popularMovies,topRated,upcoming,imageSource, search, setSearch}){
 
     return(
         <>
@@ -58,8 +58,10 @@ export default function Home({popularMovies,topRated,upcoming,imageSource}){
               <div className="container texts">
 
                 <h1 className="intro-header">Welcome to Memovies</h1>
-                <form action="">
-                  <input type="text" id="search" placeholder="Search for movies here"/>
+                <form action={"/search/"+search}>
+                  <input type="text" id="search" placeholder="Search for movies here" onChange={e=>{
+                    setSearch(e.target.value)
+                  }}/>
                   <button className="search">Search</button>
                 </form>  
               </div>
@@ -71,7 +73,7 @@ export default function Home({popularMovies,topRated,upcoming,imageSource}){
             <h3 className="first">Popular</h3>
             <div className="category-body popular">
                 {popularMovies.map(movie=>
-                    <div className="movie-card">
+                    <div className="movie-card" key={movie?.id}>
                         <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
                         <p className="title">{movie?.title}</p>
                     </div>
@@ -83,7 +85,7 @@ export default function Home({popularMovies,topRated,upcoming,imageSource}){
             <h3>Top rated</h3>
             <div className="category-body top-rated">
                 {topRated.map(movie=>
-                    <div className="movie-card">
+                    <div className="movie-card" key={movie?.id}>
                         <img src={imageSource+movie?.poster_path} alt="${result?.title}"/>
                         <p className="title">{movie?.title}</p>
                     </div>
@@ -95,7 +97,7 @@ export default function Home({popularMovies,topRated,upcoming,imageSource}){
           <h3>Upcoming</h3>
           <div className="category-body upcoming">
                 {upcoming.map(movie=>
-                    <div className="movie-card">
+                    <div className="movie-card" key={movie?.id}>
                         <img src={imageSource+movie?.poster_path} alt="${result?.title}"/>
                         <p className="title">{movie?.title}</p>
                     </div>
