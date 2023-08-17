@@ -32,11 +32,12 @@ body{
     filter: brightness(90%);
     position: relative;
     top: 60px;
+    overflow-x: hidden;
 }
 
 .video-captions{
     position: relative;
-    bottom: 33vh;
+    bottom: 60vh;
     left: 5vh;
     z-index: 10;
     font-family: 'Roboto', sans-serif;
@@ -96,7 +97,6 @@ body{
 .nav, .drop{
     z-index: 2;
     background-color: rgba(71, 71, 71, 0.269);
-    width: 100%;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     padding-left: 40px;
@@ -154,7 +154,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-@media only screen and (min-width:601px){
+@media only screen and (min-width:1000px){
     .categories{
         margin-top: 3vh;
         position: relative;
@@ -214,7 +214,7 @@ body{
 img:hover{
     filter: brightness(120%);
 }
-@media only screen and (max-width:600px){
+@media only screen and (max-width:900px){
     .intro-header{
         font-size: 25px;
     }
@@ -231,22 +231,27 @@ img:hover{
 
     .video-captions{
         position: relative;
-        bottom: 52vh;
+        bottom: 24vh;
+        text-align: center;
         left: 0vh;
         z-index: 10;
         font-family: 'Roboto', sans-serif;
         color: grey;
     }
 
+    .video-captions button{
+    }
+
     .video-captions p{
         height: 50px;
         overflow: hidden;
+        display: none;
     }
 
     .skip-buttons{
         position: relative;
         left: 30vh;
-        top: 3vh;
+        top: 5vh;
         display: flex;
     }
 
