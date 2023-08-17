@@ -92,7 +92,6 @@ export default function Home({popularMovies,topRated,upcoming,imageSource, searc
                     width="100%"
                     height={window.screen.width>600?"110%":"60%"}
                     onEnded={e=>setVideoIndex(videoIndex+1)}
-                    onPause={e=>setPaused(!paused)}
                     ref={videoRef}
                   />
                 </div>
