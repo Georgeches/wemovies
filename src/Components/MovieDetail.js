@@ -132,7 +132,8 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                                     <ReactPlayer
                                         url={`https://www.youtube.com/watch?v=${video.key}`}
                                         className="video"
-                                        style={{ marginRight: "10px" }}
+                                        width="100%"
+                                        style={{ minHeight:"200px", maxHeight:"220px" }}
                                         controls={true}
                                     />
                                 </div>

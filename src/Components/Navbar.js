@@ -1,13 +1,16 @@
-export default function Navbar(){
+export default function Navbar({search, setSearch}){
     return(
         <div className="nav">
             <nav className="navbar navbar-expand-lg ">
-                <div className="space"><a className="navbar-brand" href="#">Memovies</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <i className="las la-bars"></i>
-                </button></div>
+                <div className="space d-flex align-items-center"><a className="navbar-brand" href="/">Memovies</a>
+                <form action={"/search/"+search}>
+                  <input autoComplete='false' type="text" id="search" placeholder="Search for movies here" onChange={e=>{
+                    setSearch(e.target.value)
+                  }}/>
+                </form> 
+                </div>
                 
-                <div className="collapse navbar-collapse" id="navbarNav">
+                <div className="collapse navbar-collapse d-md-none" id="navbarNav">
                   <ul className="navbar-nav">
                     <li className="nav-item active">
                       <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>

@@ -1,5 +1,5 @@
 .toggle-pages{
-margin-top: 30px;
+    margin-top: 30px;
 }
 .pages{
     display: flex;
@@ -21,8 +21,11 @@ margin-top: 30px;
 
 @media only screen and (max-width:600px){
     .movie-result{
-        width: 100%;
+        width: 45%;
+        height: 200px;
         margin-bottom: 50px;
+        margin-right: 0px;
+        margin-left: 0px;
     }
     .movie-result a img{
         width: 100%;
