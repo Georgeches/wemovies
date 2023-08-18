@@ -4,8 +4,8 @@ import ReactPlayer from 'react-player';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './movieDetail.css'
 
-export default function MovieDetail(){
-    const {id} = useParams();
+export default function SeriesDetail(){
+    const {series_id} = useParams();
     const [movie, setMovie] = useState({})
     const [similarMovies, setSimilar] = useState([])
     const [reviews, setReviews] = useState([])
@@ -28,10 +28,10 @@ export default function MovieDetail(){
 
     useEffect(() => {
         Promise.all([
-            fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1`, options),
-            fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options),
-            fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`, options),
-            fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
+            fetch(`https://api.themoviedb.org/3/tv/${series_id}/similar?language=en-US&page=1`, options),
+            fetch(`https://api.themoviedb.org/3/tv/${series_id}?language=en-US`, options),
+            fetch(`https://api.themoviedb.org/3/tv/${series_id}/reviews?language=en-US&page=1`, options),
+            fetch(`https://api.themoviedb.org/3/tv/${series_id}/videos?language=en-US`, options)
         ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(([similarResponse, movieResponse, reviewsResponse, videosResponse]) => {
@@ -51,13 +51,13 @@ export default function MovieDetail(){
         setLoadedVideoIndices((prevIndices) => [...prevIndices, index]);
     };
 
-    const trailer = videos.find(video=>video?.type==="Trailer")
+    const trailer = videos?.find(video=>video?.type==="Trailer")
 
     for(let i=0; i<=starsCount; i++){
         starsList.unshift("star")
     }
 
-    console.log(movie);
+    console.log(movie)
     
     return(
         <div className="movie-details-page container-fluid p-lg-5">
@@ -77,7 +77,7 @@ export default function MovieDetail(){
                 </div>
                 <div className="col-12 col-lg-9 text-secondary mt-4 mt-lg-0 movie-words">
                     <div className="col-header d-flex align-items-center justify-content-between">
-                        <h2 className="text-white">{movie?.title}</h2>
+                        <h2 className="text-white">{movie?.name}</h2>
                         <div className="stars">
                             {starsList.map(star=>
                                 <i className="bi bi-star-fill"></i>
@@ -95,7 +95,7 @@ export default function MovieDetail(){
                             <p className="ms-1 ">{Math.floor(movie.vote_average)}</p>
                         </div>
                         <p>{movie?.release_date?.slice(0,4)}</p>
-                        <p>{movie?.runtime} min</p>
+                        {movie?.seasons?.length>1?<p>{movie?.seasons?.length} Seasons</p>:<p>{movie?.seasons?.length} Season</p>}
                         <p className="status text-white d-none d-md-flex">{movie?.status}</p>
                     </div>
                     {movie?.homepage&&<a href={movie?.homepage} target="_blank" className="watch btn btn-danger mt-3 pt-2 ps-4 pe-4">Watch</a>}
@@ -182,35 +182,6 @@ export default function MovieDetail(){
                         )
                     )}
                 </div>
-            </div>
-
-            <div className="reviews container mt-5">
-                <h3 className="text-white">Reviews</h3>
-                {reviews?.map(review=>
-                    <div className="review">
-                        <div className="author">
-                            <div className="author-image">
-                                {review?.author_details?.avatar_path!==null?
-                                    <LazyLoadImage src={imageSource+review?.author_details?.avatar_path} alt="author" loading="lazy"/>
-                                :
-                                    <LazyLoadImage src="https://imgs.search.brave.com/MWlI8P3aJROiUDO9A-LqFyca9kSRIxOtCg_Vf1xd9BA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzE1Lzg0LzQz/LzM2MF9GXzIxNTg0/NDMyNV90dFg5WWlJ/SXllYVI3TmU2RWFM/TGpNQW15NEd2UEM2/OS5qcGc" alt="profile" loading="lazy"/>
-                                }
-                            </div>
-                            <div className="author-details">
-                                <p>{review?.author_details?.name}</p>
-                                <p>{review?.created_at?.slice(0,10)}</p>
-                            </div>
-                        </div>
-                        <div className="review-details">
-                            <p>
-                            {isExpanded ? review.content : `${review.content.slice(0, 300)}...`}
-                                <p style={{fontSize: "small"}} className='fw-normal text-danger read-more-less' onClick={e=>setIsExpanded(!isExpanded)}>
-                                    {isExpanded ? 'Read Less' : 'Read More'}
-                                </p>
-                            </p>
-                        </div>
-                    </div>
-                )}
             </div>
 
         </div>

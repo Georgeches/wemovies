@@ -21,6 +21,7 @@ body{
     font-size: 35px;
     font-weight: 800;
     color: rgb(159, 0, 8);
+    margin-left: 3vh
 }
 
 .jumbotron {
@@ -31,7 +32,7 @@ body{
     height: 20vh;
     filter: brightness(90%);
     position: relative;
-    top: 60px;
+    top: 0px;
     overflow: hidden;
 }
 
@@ -99,6 +100,7 @@ body{
     background-color: rgba(71, 71, 71, 0.269);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    width: 100%;
     padding-left: 40px;
 }
 
@@ -154,15 +156,19 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+.results{
+    height: 80vh;
+    overflow-y: scroll;
+}
+
 .results .movie-card{
     margin-bottom: -150px;
 }
 
 @media only screen and (min-width:1000px){
     .categories{
-        margin-top: 3vh;
+        margin-top: -20vh;
         position: relative;
-        bottom: 25vh; 
     }
 
     .texts{
@@ -217,7 +223,44 @@ body{
 img:hover{
     filter: brightness(120%);
 }
+
+.hero-image{
+    width: 120%;
+    height: auto;
+}
+
+.toggle button{
+    padding: 10px;
+    width: 150px;
+    border-radius: 0px;
+    margin-left: 20px;
+}
+
+
 @media only screen and (max-width:900px){
+    .categories{
+        margin-top: 0vh;
+        position: relative;
+        top: 100px;
+    }
+
+    .category h3{
+        padding-left: 10px;
+    }
+
+    .hero-image{
+        width: 120%;
+        height: auto;
+    }
+
+    .hero-sections{
+        overflow-x: hidden;
+    }
+
+    .nav, .drop{
+        width: 100vh;
+    }
+
     .intro-header{
         font-size: 25px;
     }
@@ -229,7 +272,7 @@ img:hover{
     .jumbotron {
         height: 50vh;
         margin-bottom: 210px;
-        top: 40px;
+        top: 100px;
     }
 
     .video-captions{
