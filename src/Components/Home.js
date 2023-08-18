@@ -160,12 +160,14 @@ export default function Home({popularMovies, upcoming,imageSource, search, setSe
 
       <div className='movies-list-section'>
           <h3 className="first">Recommendations</h3>
+          {/** 
             <div className="form-check text-secondary ps-5 ps-lg-5">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={e=>setViewAdult(!viewAdult)}/>
                 <label className="form-check-label" for="flexCheckDefault">
                     Show adult content
                 </label>
             </div>
+            */}
             <div className='results d-flex justify-content-center flex-wrap'>
               {moviesList.map(movie=>
                 <div className="movie-card movie-result" key={movie?.id}>
