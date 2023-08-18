@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {useParams} from "react-router-dom"
 import ReactPlayer from 'react-player';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './movieDetail.css'
 
-export default function MovieDetail({upcoming, popularMovies, topRated}){
+export default function MovieDetail(){
     const {id} = useParams();
     const [movie, setMovie] = useState({})
     const [similarMovies, setSimilar] = useState([])
@@ -14,7 +15,7 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
     const [decimalPresent, setPresent] = useState(false)
     const [loadedVideoIndices, setLoadedVideoIndices] = useState([]);
     const imageSource = 'https://image.tmdb.org/t/p/w500'
-    const ytEmbed = "https://www.youtube.com/embed/"
+    const imageSourceRecommend = 'https://image.tmdb.org/t/p/w200'
     let starsList = []
 
     const options = {
@@ -70,7 +71,7 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
             )}
             <div className="row mt-5 p-lg-5">
                 <div className="col-12 col-lg-3 img-section">
-                    <img className="" src={imageSource+movie?.poster_path} alt="movie-poster" />
+                    <LazyLoadImage className="" src={imageSource+movie?.poster_path} alt="movie-poster" loading="lazy"/>
                 </div>
                 <div className="col-12 col-lg-9 text-secondary mt-4 mt-lg-0 movie-words">
                     <div className="col-header d-flex align-items-center justify-content-between">
@@ -150,9 +151,10 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                                     button.classList.add("d-none")
                                 }}
                                 >
-                                    <img
+                                    <LazyLoadImage
                                         src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
                                         alt="video-preview"
+                                        effect="blur"
                                         onClick={() => handleVideoLoad(index)}
                                     />
                                     <button className="play d-none" onClick={() => handleVideoLoad(index)}><i class="bi bi-play-circle-fill"></i></button>
@@ -171,7 +173,7 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                         popular_movie?.id!==movie?.id&&(
                             popular_movie?.poster_path!==null&&(
                                 <div className="movie-card">
-                                    <a href={'/movie/'+popular_movie.id+'/'+popular_movie?.title}><img src={imageSource+popular_movie?.poster_path} alt="${result?.title}"/></a>
+                                    <a href={'/movie/'+popular_movie.id+'/'+popular_movie?.title}><LazyLoadImage src={imageSourceRecommend+popular_movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
                                 </div>
                             )
                         )
@@ -186,9 +188,9 @@ export default function MovieDetail({upcoming, popularMovies, topRated}){
                         <div className="author">
                             <div className="author-image">
                                 {review?.author_details?.avatar_path!==null?
-                                    <img src={imageSource+review?.author_details?.avatar_path} alt="author"/>
+                                    <LazyLoadImage src={imageSource+review?.author_details?.avatar_path} alt="author" loading="lazy"/>
                                 :
-                                    <img src="https://imgs.search.brave.com/MWlI8P3aJROiUDO9A-LqFyca9kSRIxOtCg_Vf1xd9BA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzE1Lzg0LzQz/LzM2MF9GXzIxNTg0/NDMyNV90dFg5WWlJ/SXllYVI3TmU2RWFM/TGpNQW15NEd2UEM2/OS5qcGc" alt="profile"/>
+                                    <LazyLoadImage src="https://imgs.search.brave.com/MWlI8P3aJROiUDO9A-LqFyca9kSRIxOtCg_Vf1xd9BA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzE1Lzg0LzQz/LzM2MF9GXzIxNTg0/NDMyNV90dFg5WWlJ/SXllYVI3TmU2RWFM/TGpNQW15NEd2UEM2/OS5qcGc" alt="profile" loading="lazy"/>
                                 }
                             </div>
                             <div className="author-details">

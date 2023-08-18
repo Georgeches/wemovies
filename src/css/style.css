@@ -32,7 +32,7 @@ body{
     filter: brightness(90%);
     position: relative;
     top: 60px;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .video-captions{
@@ -154,6 +154,10 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+.results .movie-card{
+    margin-bottom: -150px;
+}
+
 @media only screen and (min-width:1000px){
     .categories{
         margin-top: 3vh;
@@ -178,7 +182,7 @@ body{
 }
 
 .category{
-    height:50vh;
+    height:41vh;
 }
 
 .category-body{
@@ -205,10 +209,9 @@ body{
 }
 
 .movie-card img{
-    height: 40vh;
     border-radius: 13px;
     transition: all 0.5s;
-    filter: brightness(80%);
+    filter: brightness(90%);
 }
 
 img:hover{

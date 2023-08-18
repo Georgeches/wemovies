@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './search.css'
 
 export default function Search({imageSource}){
 
     const {search} = useParams()
     const [searchResults, setResults] = useState([])
-    const [pagesTotal, setPages] = useState(1)
     const [page, setPage] = useState(1)
     const [adult, setAdult] = useState(false)
-    let pages = []
+    const [pages, setPages] = useState([])
 
     const options = {
         method: 'GET',
@@ -23,18 +23,15 @@ export default function Search({imageSource}){
         fetch(`https://api.themoviedb.org/3/search/movie?query=${search}&include_adult=${adult}&language=en-US&page=${page}`, options)
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            setPages(parseInt(response.total_pages))
             setResults(response.results)
+            let newPages = []
+            for(let i=1; i<=response.total_pages; i++){
+                newPages.push(i)
+            }
+            setPages(newPages)
         })
         .catch(err => console.error(err));
       },[page, adult])
-
-      console.log(searchResults)
-
-      for(let i=1; i<=pagesTotal; i++){
-        pages.push(i)
-      }
 
     return(
         <div className="search-page ps-lg-5 pt-5">
@@ -49,7 +46,7 @@ export default function Search({imageSource}){
                 {searchResults.map(result=>
                     result?.poster_path!==null && (
                         <div className="movie-card movie-result">
-                            <a href={'/movie/'+result?.id+'/'+result?.title}><img src={imageSource+result?.poster_path} alt={`${result?.title}`}/></a>
+                            <a href={'/movie/'+result?.id+'/'+result?.title}><LazyLoadImage src={imageSource+result?.poster_path} alt={`${result?.title}`} loading="lazy"/></a>
                         </div>
                     )
                 )}
@@ -58,6 +55,9 @@ export default function Search({imageSource}){
                 <p>Page:</p>
                 <div className="pages">
                 {pages.map(this_page=>
+                    page===this_page?
+                    <button style={{border: "1px solid grey"}}>{this_page}</button>
+                    :
                     <button onClick={e=>{
                         setPage(this_page)
                         document.body.scrollTop = 0;
