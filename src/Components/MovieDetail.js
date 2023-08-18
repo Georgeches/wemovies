@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom"
 import ReactPlayer from 'react-player';
 import './movieDetail.css'
 
-export default function MovieDetail({upcoming, popularMovies}){
+export default function MovieDetail({upcoming, popularMovies, topRated}){
     const {id} = useParams();
     const [movie, setMovie] = useState({})
     const [similarMovies, setSimilar] = useState([])
@@ -77,7 +77,7 @@ export default function MovieDetail({upcoming, popularMovies}){
                         <h2 className="text-white">{movie?.title}</h2>
                         <div className="stars">
                             {starsList.map(star=>
-                                <i key={star?.id} className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
                             )}
                             {decimalPresent&&(
                                 <i className="bi bi-star-half"></i>
@@ -88,7 +88,7 @@ export default function MovieDetail({upcoming, popularMovies}){
                     <p className="fw-light">{movie?.tagline}</p>
                     <div className="fine-details d-flex align-items-center">
                         <div className="rating d-flex">
-                            <i className="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                             <p className="ms-1 ">{Math.floor(movie.vote_average)}</p>
                         </div>
                         <p>{movie?.release_date?.slice(0,4)}</p>
@@ -97,14 +97,14 @@ export default function MovieDetail({upcoming, popularMovies}){
                     </div>
                     <p className="pt-4">{movie?.overview}</p>
                     <div className="buttons d-flex">
-                        <i className="bi bi-plus-lg"></i>
-                        <i className="bi bi-heart-fill"></i>
-                        <i className="bi bi-bookmark-plus-fill"></i>
-                        <i className="bi bi-star-fill"></i>
+                        <i class="bi bi-plus-lg"></i>
+                        <i class="bi bi-heart-fill"></i>
+                        <i class="bi bi-bookmark-plus-fill"></i>
+                        <i class="bi bi-star-fill"></i>
                     </div>
                     <div className="genres d-flex mt-4">
                     {movie?.genres?.map(genre=>
-                        <p key={genre?.id} className="me-2 mb-3">{genre.name}</p>
+                        <p className="me-2 mb-3">{genre.name}</p>
                     )}
                     </div>
                     <div className="row mt-3">
@@ -113,7 +113,7 @@ export default function MovieDetail({upcoming, popularMovies}){
                         </div>
                         <div className="col-md-7 d-flex flex-wrap">
                             {movie?.production_companies?.map(company=>
-                                <p key={company?.id} className="me-3">{company?.name}</p>
+                                <p className="me-3">{company?.name}</p>
                             )}
                         </div>
                     <hr/>
@@ -155,7 +155,7 @@ export default function MovieDetail({upcoming, popularMovies}){
                                         alt="video-preview"
                                         onClick={() => handleVideoLoad(index)}
                                     />
-                                    <button className="play d-none" onClick={() => handleVideoLoad(index)}><i className="bi bi-play-circle-fill"></i></button>
+                                    <button className="play d-none" onClick={() => handleVideoLoad(index)}><i class="bi bi-play-circle-fill"></i></button>
                                 </div>
                             )}
                         </div>
@@ -170,7 +170,7 @@ export default function MovieDetail({upcoming, popularMovies}){
                     {similarMovies?.map(popular_movie=>
                         popular_movie?.id!==movie?.id&&(
                             popular_movie?.poster_path!==null&&(
-                                <div className="movie-card" key={popular_movie?.id}>
+                                <div className="movie-card">
                                     <a href={'/movie/'+popular_movie.id+'/'+popular_movie?.title}><img src={imageSource+popular_movie?.poster_path} alt="${result?.title}"/></a>
                                 </div>
                             )
@@ -182,7 +182,7 @@ export default function MovieDetail({upcoming, popularMovies}){
             <div className="reviews container mt-5">
                 <h3 className="text-white">Reviews</h3>
                 {reviews?.map(review=>
-                    <div className="review" key={review?.id}>
+                    <div className="review">
                         <div className="author">
                             <div className="author-image">
                                 {review?.author_details?.avatar_path!==null?
@@ -199,9 +199,9 @@ export default function MovieDetail({upcoming, popularMovies}){
                         <div className="review-details">
                             <p>
                             {isExpanded ? review.content : `${review.content.slice(0, 300)}...`}
-                                <b style={{fontSize: "small"}} className='fw-normal text-danger read-more-less' onClick={e=>setIsExpanded(!isExpanded)}>
+                                <p style={{fontSize: "small"}} className='fw-normal text-danger read-more-less' onClick={e=>setIsExpanded(!isExpanded)}>
                                     {isExpanded ? 'Read Less' : 'Read More'}
-                                </b>
+                                </p>
                             </p>
                         </div>
                     </div>

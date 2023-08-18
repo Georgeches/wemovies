@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player';
 import '../css/style.css'
 
-export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdult, pages, moviesList, popularMovies, upcoming,imageSource, search, setSearch}){
+export default function Home({popularMovies,topRated,upcoming,imageSource, search, setSearch}){
 
     const [videoIndex, setVideoIndex] = useState(0)
     const videoPop = popularMovies[videoIndex]
@@ -29,7 +29,7 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
 
     return(
         <>
-        <div className="hero-sections" style={{width: window.screen.width<600?"46.1vh":"100%"}}>
+        <div className="hero-sections">
         <div className="nav">
             <nav className="navbar navbar-expand-lg ">
                 <div className="space d-flex align-items-center">
@@ -82,9 +82,8 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
         <div className="intro container-fluid">
             <div className="jumbotron jumbotron-fluid">
                 {/**     background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701168454.jpg"); */}
-                {video?.key&&(
                 <div className=''  style={{ width: '100%', height: '75vh' }}>
-                 
+                  
                   <ReactPlayer
                     url={`https://www.youtube.com/watch?v=${video?.key}`}
                     playing={true}
@@ -96,12 +95,7 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
                     ref={videoRef}
                   />
                 </div>
-                )}
-                {!video?.key&&(
-                <div className='loading'>
-                    <h3 className='text-secondary'>Loading...</h3>
-                </div>
-                )}
+
                 
 
               </div>
@@ -123,7 +117,7 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
                     <br/>
                     <div className='caption-buttons'>
                     <a href={'/movie/'+videoPop?.id+'/'+videoPop?.title}> <button><i class="bi bi-play-circle-fill watch"></i> Watch Now</button></a>
-                      <button><i class="bi bi-bookmark-plus"></i> Bookmark</button>
+                      <button><i class="bi bi-bookmark-plus"></i> Bookamrk</button>
                     </div>
                   </div>
                   <div className='skip-buttons'>
@@ -136,11 +130,22 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
     </div>
 
     <div className="categories">
-
+      
         <div className="category">
             <h3 className="first">Popular</h3>
             <div className="category-body popular">
                 {popularMovies.map(movie=>
+                    <div className="movie-card" key={movie?.id}>
+                        <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
+                    </div>
+                )}
+            </div>
+        </div>
+
+        <div className="category">
+            <h3>Top rated</h3>
+            <div className="category-body top-rated">
+                {topRated.map(movie=>
                     <div className="movie-card" key={movie?.id}>
                         <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
                     </div>
@@ -157,37 +162,7 @@ export default function Home({setCurrentPage, currentPage, setViewAdult, viewAdu
                     </div>
                 )}
           </div>
-        </div>
-
-        <div className='movies-list-section'>
-          <h3 className="first">Recommendations</h3>
-            <div className="form-check ps-5 ps-lg-5">
-                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={e=>setViewAdult(!viewAdult)}/>
-                <label className="form-check-label" for="flexCheckDefault">
-                    Show adult content
-                </label>
-            </div>
-            <div className='results d-flex justify-content-center flex-wrap'>
-              {moviesList.map(movie=>
-                <div className="movie-card movie-result" key={movie?.id}>
-                    <a href={'/movie/'+movie.id+'/'+movie?.title}><img src={imageSource+movie?.poster_path} alt="${result?.title}"/></a>
-                </div>
-              )}
-            </div>
-            <div className="toggle-pages">
-                <p>Page:</p>
-                <div className="pages">
-                {pages.map(this_page=>
-                    currentPage===this_page?
-                    <button style={{border: "1px solid grey"}}>{this_page}</button>
-                    :
-                    <button onClick={e=>{
-                        setCurrentPage(this_page)
-                    }}>{this_page}</button>
-                )}
-                </div>
-            </div>
-        </div>
+      </div>
       
     </div>
     </>
