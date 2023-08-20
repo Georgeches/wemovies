@@ -10,6 +10,7 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
     const [showSeries, setShowSeries] = useState(false)
     const [video, setVideo] = useState({})
     const videoRef = useRef(null)
+    const [isLoading, setLoading] = useState(true)
     
     const options = {
         method: 'GET',
@@ -27,6 +28,10 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
       })
     }, [videoPop])
 
+    useEffect(()=>{
+      videoPop?.id&&(setLoading(false))
+    }, [videoPop])
+
     const handleVideoError = (e) => {
       e.preventDefault()
       console.error('Video loading error');
@@ -42,56 +47,73 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
 
     return(
         <>
-        <div className="hero-sections" style={{width: window.screen.width<600?"46vh":"100%"}}>
-        <div className="nav">
-            <nav className="navbar navbar-expand-lg ">
-                <div className="space d-flex align-items-center">
-                  <a className="navbar-brand" href="/">Memovies</a>
-                  <form action={"/search/"+search}>
-                    <input autoComplete='false' type="text" id="search" placeholder="Search for movies here" onChange={e=>{
-                      setSearch(e.target.value)
-                    }}/>
-                  </form> 
-                </div>
-                
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    <li className="nav-item active">
-                      <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">TV Shows</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">My List</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">New & Popular</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">Kids</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">Popular</a>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Genre
-                        </a>
-                        <div className="dropdown-menu drop" aria-labelledby="navbarDropdown">
-                          <a className="dropdown-item" href="#">Action</a>
-                          <a className="dropdown-item" href="#">Horror</a>
-                          <a className="dropdown-item" href="#">Romance</a>
-                          <a className="dropdown-item" href="#">Thriller</a>
-                          <a className="dropdown-item" href="#">Comedy</a>
-                          <a className="dropdown-item" href="#">Anime</a>
-                          <a className="dropdown-item" href="#">Science fiction</a>
-                        </div>
-                      </li>
-                  </ul>
-                </div>
-              </nav>
+        {isLoading?
+        <div className='svg-load container d-flex flex-wrap align-items-center justify-content-center' style={{height:"90vh"}}>
+          <svg viewBox="0 0 100 100" width="200">
+          <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M 21 40 V 59">
+              <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              values="0 21 59; 180 21 59"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+            <path d="M 79 40 V 59">
+              <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              values="0 79 59; -180 79 59"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+  
+            <path d="M 50 21 V 40">
+              <animate
+              attributeName="d"
+              values="M 50 21 V 40; M 50 59 V 40"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+            <path d="M 50 60 V 79">
+              <animate
+              attributeName="d"
+              values="M 50 60 V 79; M 50 98 V 79"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+            <path d="M 50 21 L 79 40 L 50 60 L 21 40 Z">
+            <animate
+              attributeName="stroke"
+              values="rgba(255,255,255,1); rgba(100,100,100,0)"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+            <path d="M 50 40 L 79 59 L 50 79 L 21 59 Z"/>
+          
+            <path d="M 50 59 L 79 78 L 50 98 L 21 78 Z">
+            <animate
+              attributeName="stroke"
+              values="rgba(100,100,100,0); rgba(255,255,255,1)"
+              dur="2s"
+              repeatCount="indefinite" />
+            </path>
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="translate"
+              values="0 0; 0 -19"
+              dur="2s"
+              repeatCount="indefinite" />
+          </g>
+        </svg>
+        <p>Loading....</p>
         </div>
+        :
+        <>
+        <div className="hero-sections" style={{width: window.screen.width<600?"46vh":"100%"}}>
         {window.screen.width>900&&(
         <div className="intro container-fluid">
             <div className="jumbotron jumbotron-fluid">
@@ -151,7 +173,7 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
             <div className="category-body popular">
                 {popularMovies.map(movie=>
                     <div className="movie-card" key={movie?.id}>
-                        <a href={'/movie/'+movie?.id+'/'+movie?.title}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
+                        <a href={'/movie/'+movie?.id+'/'+movie?.title}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading="eager"/></a>
                     </div>
                 )}
             </div>
@@ -162,7 +184,7 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
           <div className="category-body upcoming">
                 {upcoming.map(movie=>
                     <div className="movie-card" key={movie?.id}>
-                        <a href={'/movie/'+movie?.id+'/'+movie?.title}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
+                        <a href={'/movie/'+movie?.id+'/'+movie?.title}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading={window.screen.width<600?"eager":"lazy"}/></a>
                     </div>
                 )}
           </div>
@@ -173,7 +195,7 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
           <div className="category-body upcoming">
                 {popularSeries.map(movie=>
                     <div className="movie-card" key={movie?.id}>
-                        <a href={'/series/'+movie?.id+'/'+movie?.name}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
+                        <a href={'/series/'+movie?.id+'/'+movie?.name}><LazyLoadImage src={imageSource+movie?.poster_path} alt="${result?.title}" loading={window.screen.width<600?"eager":"lazy"}/></a>
                     </div>
                 )}
           </div>
@@ -228,6 +250,8 @@ export default function Home({seriesList, popularMovies, popularSeries, topSerie
         </div>
       
     </div>
+    </>
+    }
     </>
     )
 }

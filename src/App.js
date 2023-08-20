@@ -94,24 +94,22 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Navbar search={search} setSearch={setSearch}/>
       <Routes>
           <Route path="/" element={<Home seriesList={seriesList} popularSeries={popularSeries} topSeries={topSeries} setViewAdult={setViewAdult} viewAdult={viewAdult} moviesList={moviesList} search={search} setSearch={setSearch} popularMovies={popularMovies} upcoming={upcoming} imageSource={imageSource}/>}/>
           <Route path="/series/:series_id/:name" element={
             <>
-            <Navbar/>
             <SeriesDetail search={search} setSearch={setSearch} imageSource={imageSource}/>
             </>
           }/>
           <Route path="/movie/:id/:name" element={
             <>
-            <Navbar/>
             <MovieDetail search={search} setSearch={setSearch} imageSource={imageSource}/>
             </>
           }/>
           <Route path="/search/:search" element={
             <>
-            <Navbar search={search} setSearch={setSearch}/>
-            <MovieSearch imageSource={imageSource} search={search}/>
+            <MovieSearch imageSource={imageSource} setSearch={setSearch} search={search}/>
             </>
           }/>
       </Routes>

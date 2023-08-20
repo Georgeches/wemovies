@@ -2,12 +2,12 @@ export default function Navbar({search, setSearch}){
   return(
       <div className="nav">
           <nav className="navbar navbar-expand-lg ">
-              <div className="space d-flex align-items-center"><a className="navbar-brand" href="/">Memovies</a>
+              <div className="space d-flex align-items-center">
               <form action={"/search/"+search}>
-                <input autoComplete='false' type="text" id="search" placeholder="Search for movies here" onChange={e=>{
-                  setSearch(e.target.value)
-                }}/>
-              </form> 
+                    <input autoComplete='off' type="text" id="search" placeholder="Search for movies here" onChange={e=>{
+                      setSearch(e.target.value)
+                    }}/>
+                  </form> 
               </div>
               
               <div className="collapse navbar-collapse d-md-none" id="navbarNav">

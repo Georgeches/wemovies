@@ -8,12 +8,12 @@ export default function SeriesDetail(){
     const {series_id} = useParams();
     const [movie, setMovie] = useState({})
     const [similarMovies, setSimilar] = useState([])
-    const [reviews, setReviews] = useState([])
     const [videos, setVideos] = useState([])
     const [starsCount, setStars] = useState(0)
     const [isExpanded, setIsExpanded] = useState(false);
     const [decimalPresent, setPresent] = useState(false)
     const [loadedVideoIndices, setLoadedVideoIndices] = useState([]);
+    const [isLoading, setLoading] = useState(true)
     const imageSource = 'https://image.tmdb.org/t/p/w500'
     const imageSourceRecommend = 'https://image.tmdb.org/t/p/w200'
     let starsList = []
@@ -30,22 +30,24 @@ export default function SeriesDetail(){
         Promise.all([
             fetch(`https://api.themoviedb.org/3/tv/${series_id}/similar?language=en-US&page=1`, options),
             fetch(`https://api.themoviedb.org/3/tv/${series_id}?language=en-US`, options),
-            fetch(`https://api.themoviedb.org/3/tv/${series_id}/reviews?language=en-US&page=1`, options),
             fetch(`https://api.themoviedb.org/3/tv/${series_id}/videos?language=en-US`, options)
         ])
         .then(responses => Promise.all(responses.map(response => response.json())))
-        .then(([similarResponse, movieResponse, reviewsResponse, videosResponse]) => {
+        .then(([similarResponse, movieResponse, videosResponse]) => {
             setSimilar(similarResponse.results);
             setMovie(movieResponse);
             setStars(Math.floor((movieResponse.vote_average / 10) * 5) - 1);
             if ((movieResponse.vote_average / 10) * 5 - (Math.floor((movieResponse.vote_average / 10) * 5) - 1) > 0) {
                 setPresent(true);
             }
-            setReviews(reviewsResponse.results);
             setVideos(videosResponse.results);
         })
         .catch(err => console.error(err));
     }, []);
+
+    useEffect(()=>{
+        movie.id&&(setLoading(false))
+    }, [movie])
 
     function handleVideoLoad(index){
         setLoadedVideoIndices((prevIndices) => [...prevIndices, index]);
@@ -60,6 +62,7 @@ export default function SeriesDetail(){
     console.log(movie)
     
     return(
+        !isLoading?(
         <div className="movie-details-page container-fluid p-lg-5">
             {trailer &&(
                 <div className="trailer d-flex justify-content-center">
@@ -98,7 +101,7 @@ export default function SeriesDetail(){
                         {movie?.seasons?.length>1?<p>{movie?.seasons?.length} Seasons</p>:<p>{movie?.seasons?.length} Season</p>}
                         <p className="status text-white d-none d-md-flex">{movie?.status}</p>
                     </div>
-                    {movie?.homepage&&<a href={movie?.homepage} target="_blank" className="watch btn btn-danger mt-3 pt-2 ps-4 pe-4">Watch</a>}
+                    {movie?.homepage.includes("netflix")&&<a href={movie?.homepage} target="_blank" className="watch btn btn-danger mt-3 pt-2 ps-4 pe-4">Watch</a>}
                     <p className="pt-4">{movie?.overview}</p>
                     <div className="buttons d-flex">
                         <i class="bi bi-plus-lg"></i>
@@ -176,7 +179,7 @@ export default function SeriesDetail(){
                         popular_movie?.id!==movie?.id&&(
                             popular_movie?.poster_path!==null&&(
                                 <div className="movie-card">
-                                    <a href={'/movie/'+popular_movie.id+'/'+popular_movie?.title}><LazyLoadImage src={imageSourceRecommend+popular_movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
+                                    <a href={'/series/'+popular_movie.id+'/'+popular_movie?.name}><LazyLoadImage src={imageSourceRecommend+popular_movie?.poster_path} alt="${result?.title}" loading="lazy"/></a>
                                 </div>
                             )
                         )
@@ -185,5 +188,71 @@ export default function SeriesDetail(){
             </div>
 
         </div>
+        )
+        :(
+            <div className='svg-load container d-flex flex-wrap align-items-center justify-content-center' style={{height:"90vh"}}>
+              <svg viewBox="0 0 100 100" width="200">
+              <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+                <path d="M 21 40 V 59">
+                  <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="rotate"
+                  values="0 21 59; 180 21 59"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+                <path d="M 79 40 V 59">
+                  <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="rotate"
+                  values="0 79 59; -180 79 59"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+      
+                <path d="M 50 21 V 40">
+                  <animate
+                  attributeName="d"
+                  values="M 50 21 V 40; M 50 59 V 40"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+                <path d="M 50 60 V 79">
+                  <animate
+                  attributeName="d"
+                  values="M 50 60 V 79; M 50 98 V 79"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+                <path d="M 50 21 L 79 40 L 50 60 L 21 40 Z">
+                <animate
+                  attributeName="stroke"
+                  values="rgba(255,255,255,1); rgba(100,100,100,0)"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+                <path d="M 50 40 L 79 59 L 50 79 L 21 59 Z"/>
+              
+                <path d="M 50 59 L 79 78 L 50 98 L 21 78 Z">
+                <animate
+                  attributeName="stroke"
+                  values="rgba(100,100,100,0); rgba(255,255,255,1)"
+                  dur="2s"
+                  repeatCount="indefinite" />
+                </path>
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="translate"
+                  values="0 0; 0 -19"
+                  dur="2s"
+                  repeatCount="indefinite" />
+              </g>
+            </svg>
+            <p>Loading....</p>
+            </div>
+        )
     )
 }

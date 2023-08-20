@@ -97,7 +97,7 @@ body{
 
 .nav, .drop{
     z-index: 2;
-    background-color: rgba(71, 71, 71, 0.269);
+    background-color: rgb(4, 4, 4);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     width: 100%;
@@ -156,17 +156,12 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-.results{
-    height: 80vh;
-    overflow-y: scroll;
-}
-
 .results .movie-card{
     margin-bottom: -150px;
 }
 
 .category{
-    height:43.5vh;
+    height:46vh;
 }
 
 @media only screen and (min-width:1000px){
@@ -195,7 +190,7 @@ body{
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
-    height: 55vh;
+    height: 58vh;
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
 }
