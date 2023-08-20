@@ -201,7 +201,7 @@ body{
 }
 
 .movie-card{
-    height: 50vh;
+    height: 33vh;
     margin-top: 10px;
     margin-right: 20px;
     padding: 10px;
@@ -210,6 +210,7 @@ body{
 }
 
 .movie-card img{
+    height: 100%;
     border-radius: 13px;
     transition: all 0.5s;
     filter: brightness(90%);
